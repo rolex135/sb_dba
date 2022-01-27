@@ -1,4 +1,5 @@
 # SB DBA
+Default working version is for M1 Mac - Arm architecture, how to use in amd64 architecture is under.
 ## Automation task - M1 Mac - ARM architecture
 
 ### 1. Install vagrant
