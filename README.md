@@ -2,8 +2,7 @@
 ## Automation task - M1 Mac - ARM architecture
 
 ### 1. Install vagrant
-macOS - ```brew install vagrant``` <br />
-Linux has separate commands for every distro - better information at https://www.vagrantup.com/downloads
+macOS - ```brew install vagrant```
 
 #### 2. Install ansible
 https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html#installing-ansible-on-specific-operating-systems
@@ -15,18 +14,21 @@ https://www.vagrantup.com/vmware/downloads
 ```vagrant plugin install vagrant-vmware-desktop```
 
 #### 5. Git clone this repo
-```git clone https://github.com/rolex135/sb_test_dba.git```
+```git clone https://github.com/rolex135/sb_dba.git```
 
-#### 6. Build and provision machines defined in Vagrantfile
+#### 6. Go to cloned directory
+```cd sb_dba ```
+
+#### 7. Build and provision machines defined in Vagrantfile
 ```vagrant up```
 
-#### 7. SSH into ansibleserver that was built with Vagrant
+#### 8. SSH into ansibleserver that was built with Vagrant
 ```vagrant ssh ansibleserver```
 
-#### 8. Run plabook from ansibleserver to setup database server
+#### 9. Run plabook from ansibleserver to setup database server
 ```ansible-playbook dbserver.yaml```
 
-#### 9. Run plabook from ansibleserver to setup app server
+#### 10. Run plabook from ansibleserver to setup app server
 ```ansible-playbook appserver.yaml```
 
 
@@ -42,16 +44,22 @@ https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.ht
 https://www.virtualbox.org/wiki/Downloads
 
 #### 4. Git clone this repo
-```git clone https://github.com/rolex135/sb_test_dba.git```
+```git clone https://github.com/rolex135/sb_dba.git```
 
-#### 5. Build and provision machines defined in Vagrantfile
+#### 5. Go to cloned directory
+```cd sb_dba ```
+
+#### 6. Change Vagrantfile-virtualbox to Vagrantfile and also original Vagrantfile to something else
+```mv Vagrantfile Vagrantfile-arm && mv Vagrantfile-virtualbox Vagrantfile```
+
+#### 7. Build and provision machines defined in Vagrantfile
 ```vagrant up```
 
-#### 6. SSH into ansibleserver that was built with Vagrant
+#### 8. SSH into ansibleserver that was built with Vagrant
 ```vagrant ssh ansibleserver```
 
-#### 7. Run plabook from ansibleserver to setup database server
+#### 9. Run plabook from ansibleserver to setup database server
 ```ansible-playbook dbserver.yaml```
 
-#### 8. Run plabook from ansibleserver to setup app server
+#### 10. Run plabook from ansibleserver to setup app server
 ```ansible-playbook appserver.yaml```
