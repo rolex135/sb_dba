@@ -8,28 +8,20 @@ macOS - ```brew install vagrant```
 https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html#installing-ansible-on-specific-operating-systems
 3. Install vmware utility <br />
 https://www.vagrantup.com/vmware/downloads
-
-#### 4. Install vagrant plugin
+4. Install vagrant plugin <br />
 ```vagrant plugin install vagrant-vmware-desktop```
-
-#### 5. Git clone this repo
+5. Git clone this repo <br />
 ```git clone https://github.com/rolex135/sb_dba.git```
-
-#### 6. Go to cloned directory
+6. Go to cloned directory <br />
 ```cd sb_dba ```
-
-#### 7. Build and provision machines defined in Vagrantfile
+7. Build and provision machines defined in Vagrantfile <br />
 ```vagrant up```
-
-#### 8. SSH into ansibleserver that was built with Vagrant
+8. SSH into ansibleserver that was built with Vagrant <br />
 ```vagrant ssh ansibleserver```
-
-#### 9. Run plabook from ansibleserver to setup database server
+9. Run plabook from ansibleserver to setup database server <br />
 ```ansible-playbook dbserver.yaml```
-
-#### 10. Run plabook from ansibleserver to setup app server
+10. Run plabook from ansibleserver to setup app server <br />
 ```ansible-playbook appserver.yaml```
-
 
 ## Automation task - Linux - AMD64 architecture
 
