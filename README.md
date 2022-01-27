@@ -25,32 +25,23 @@ https://www.vagrantup.com/vmware/downloads
 
 ## Automation task - Linux - AMD64 architecture
 
-#### 1. Install vagrant
+1. Install vagrant <br />
 Linux has separate commands for every distro - better information at https://www.vagrantup.com/downloads
-
-#### 2. Install ansible
+2. Install ansible <br />
 https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html#installing-ansible-on-specific-operating-systems
-
-#### 3. Install virtualbox
+3. Install virtualbox <br />
 https://www.virtualbox.org/wiki/Downloads
-
-#### 4. Git clone this repo
+4. Git clone this repo <br />
 ```git clone https://github.com/rolex135/sb_dba.git```
-
-#### 5. Go to cloned directory
+5. Go to cloned directory <br />
 ```cd sb_dba ```
-
-#### 6. Change Vagrantfile-virtualbox to Vagrantfile and also original Vagrantfile to something else
+6. Change Vagrantfile-virtualbox to Vagrantfile and also original Vagrantfile to something else <br />
 ```mv Vagrantfile Vagrantfile-arm && mv Vagrantfile-virtualbox Vagrantfile```
-
-#### 7. Build and provision machines defined in Vagrantfile
+7. Build and provision machines defined in Vagrantfile <br />
 ```vagrant up```
-
-#### 8. SSH into ansibleserver that was built with Vagrant
+8. SSH into ansibleserver that was built with Vagrant <br />
 ```vagrant ssh ansibleserver```
-
-#### 9. Run plabook from ansibleserver to setup database server
+9. Run plabook from ansibleserver to setup database server <br />
 ```ansible-playbook dbserver.yaml```
-
-#### 10. Run plabook from ansibleserver to setup app server
+10. Run plabook from ansibleserver to setup app server <br />
 ```ansible-playbook appserver.yaml```
