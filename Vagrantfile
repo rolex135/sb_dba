@@ -1,0 +1,37 @@
+Vagrant.configure("2") do |config|
+  config.vm.define "ansibleserver" do |ansserver|
+    ansserver.vm.box = "bytesguy/ubuntu-server-21.10-arm64"
+    ansserver.vm.box_version = "1.0.0"
+    ansserver.vm.hostname = "ansibleserver"
+    ansserver.vm.network "private_network", ip: "192.168.33.10"
+    ansserver.vm.network :forwarded_port, guest: 22, host: 10122, id: "ssh"
+    ansserver.vm.provision :ansible do |ansible|
+      ansible.limit = "ansibleserver"
+      ansible.playbook = "provisionansibleserver.yaml"
+    end
+  end
+
+  config.vm.define "appserver" do |appserver|
+    appserver.vm.box = "bytesguy/ubuntu-server-21.10-arm64"
+    appserver.vm.box_version = "1.0.0"
+    appserver.vm.hostname = "appserver"
+    appserver.vm.network "private_network", ip: "192.168.33.11"
+    appserver.vm.network :forwarded_port, guest: 22, host: 10222, id: "ssh"
+  end
+
+  config.vm.define "dbserver" do |dbserver|
+    dbserver.vm.box = "bytesguy/ubuntu-server-21.10-arm64"
+    dbserver.vm.box_version = "1.0.0"
+    dbserver.vm.hostname = "dbserver"
+    dbserver.vm.network "private_network", ip: "192.168.33.12"
+    dbserver.vm.network :forwarded_port, guest: 22, host: 10322, id: "ssh"
+    dbserver.vm.provision :ansible do |ansible|
+      ansible.limit = "dbserver"
+      ansible.playbook = "provisiondbserver.yaml"
+    end
+    dbserver.vm.provision :ansible do |ansible|
+      ansible.limit = "all"
+      ansible.playbook = "provisionall.yaml"
+    end
+  end
+end

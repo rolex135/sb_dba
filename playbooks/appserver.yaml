@@ -1,0 +1,23 @@
+---
+- hosts: appserver
+  become: yes
+  become_method: sudo
+  tasks:
+  
+  - name: Install postgresql client
+    package:
+      name:
+        - postgresql-client-13
+        - python3-psycopg2
+        - acl
+      state: latest
+      update_cache: yes
+
+  - name: Query database from dbserver
+    command: psql -h 192.168.33.12 -U postgres dummy -c "\copy (select * from dummy_table limit 100) TO '/home/vagrant/gathered_data.csv' DELIMITER ',' CSV HEADER;"
+
+  - name: Fetch created csv to ansible server from app server
+    fetch:
+      src: /home/vagrant/gathered_data.csv
+      dest: /tmp/
+      flat: yes

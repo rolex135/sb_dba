@@ -1,0 +1,105 @@
+---
+- hosts: ansibleserver 
+  become: yes
+  become_method: sudo
+  tasks:
+
+  - name: Install ansible to ansible server
+    package:
+      name:
+        - ansible
+      state: latest
+      update_cache: yes
+
+  - name: Create ansible.cfg
+    blockinfile:
+      path: /home/vagrant/ansible.cfg
+      block: |
+        [defaults]
+        host_key_checking = False
+        inventory = /home/vagrant/hosts
+      create: yes
+      owner: vagrant
+      group: vagrant
+
+  - name: Add dbserver to hosts
+    blockinfile:
+      path: /home/vagrant/hosts
+      block: |
+        [hosts:children]
+        appserver
+        dbserver
+        [appserver]
+        appserver ansible_host=192.168.33.11 ansible_user='vagrant' ansible_ssh_private_key_file='/home/vagrant/.ssh/id_rsa'
+        [dbserver]
+        dbserver ansible_host=192.168.33.12 ansible_user='vagrant' ansible_ssh_private_key_file='/home/vagrant/.ssh/id_rsa'
+      create: yes
+      owner: vagrant
+      group: vagrant
+
+  - name: Create appserver.yaml to ansiblserver
+    blockinfile:
+      path: /home/vagrant/appserver.yaml
+      block: |
+        ---
+        - hosts: appserver
+          become: yes
+          become_method: sudo
+          tasks:
+          - name: Install postgresql client
+            package:
+              name:
+                - postgresql-client-13
+                - python3-psycopg2
+                - acl
+              state: latest
+              update_cache: yes
+
+          - name: Query database from dbserver
+            command: psql -h 192.168.33.12 -U postgres dummy -c "\copy (select * from dummy_table limit 100) TO '/home/vagrant/gathered_data.csv' DELIMITER ',' CSV HEADER;"
+
+          - name: Fetch created csv to ansible server from app server
+            fetch:
+              src: /home/vagrant/gathered_data.csv
+              dest: /tmp/
+              flat: yes
+      create: yes
+      owner: vagrant
+      group: vagrant
+     
+  - name: Create dbserver.yaml to ansiblserver
+    blockinfile:
+      path: /home/vagrant/dbserver.yaml
+      block: |
+        ---
+        - hosts: dbserver 
+          become: yes
+          become_method: sudo
+          tasks:
+          
+          - name: Create dummy database
+            postgresql_db:
+              name: dummy
+            become: yes
+            become_user: postgres
+
+          - name: Create table to dummy database
+            postgresql_table:
+              db: dummy
+              name: dummy_table
+              columns:
+              - random_number integer
+              - random_date date
+              - random_character varchar(100)
+            become: yes
+            become_user: postgres
+
+          - name: Create dummy data to table
+            postgresql_query:
+              db: dummy
+              query: INSERT INTO dummy_table (random_number, random_date, random_character) SELECT (random() * 70 + 10)::integer, DATE '2015-01-01' + (random() * 700)::integer, substr(md5(random()::text), 1, 10) FROM generate_series(1, 1000000);
+            become: yes
+            become_user: postgres
+      create: yes
+      owner: vagrant
+      group: vagrant

@@ -1,0 +1,30 @@
+---
+- hosts: dbserver 
+  become: yes
+  become_method: sudo
+  tasks:
+
+  - name: Install postgresql, acl and psycopg2 so ansible can communicate with database server
+    package:
+      name:
+        - postgresql-13
+        - acl
+        - python3-psycopg2
+      state: latest
+      update_cache: yes
+
+  - name: Allow all connections to postgre - security risk but for testing purposes only
+    lineinfile:
+      path: /etc/postgresql/13/main/pg_hba.conf
+      line: host  all all 0.0.0.0/0 trust
+    
+  - name: Allow remote connections
+    replace:
+      path: /etc/postgresql/13/main/postgresql.conf
+      regexp: '#listen_addresses(\s+.*)?$'
+      replace: listen_addresses = '*'
+
+  - name: Restart postgre
+    service:
+      name: postgresql
+      state: restarted

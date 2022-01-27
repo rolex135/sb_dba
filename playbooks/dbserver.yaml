@@ -1,0 +1,29 @@
+---
+- hosts: dbserver 
+  become: yes
+  become_method: sudo
+  tasks:
+  
+  - name: Create dummy database
+    postgresql_db:
+      name: dummy
+    become: yes
+    become_user: postgres
+
+  - name: Create table to dummy database
+    postgresql_table:
+      db: dummy
+      name: dummy_table
+      columns:
+      - random_number integer
+      - random_date date
+      - random_character varchar(100)
+    become: yes
+    become_user: postgres
+
+  - name: Create dummy data to table
+    postgresql_query:
+      db: dummy
+      query: INSERT INTO dummy_table (random_number, random_date, random_character) SELECT (random() * 70 + 10)::integer, DATE '2015-01-01' + (random() * 700)::integer, substr(md5(random()::text), 1, 10) FROM generate_series(1, 1000000);
+    become: yes
+    become_user: postgres 
