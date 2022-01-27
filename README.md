@@ -2,11 +2,11 @@
 Default working version is for M1 Mac - Arm architecture, how to use in amd64 architecture is under.
 ## Automation task - M1 Mac - ARM architecture
 
-1. Install vagrant <br \>
+1. Install vagrant <br />
 macOS - ```brew install vagrant```
-2. Install ansible  <br \>
+2. Install ansible  <br />
 https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html#installing-ansible-on-specific-operating-systems
-3. Install vmware utility <br \>
+3. Install vmware utility <br />
 https://www.vagrantup.com/vmware/downloads
 
 #### 4. Install vagrant plugin
