@@ -27,6 +27,7 @@ https://www.vagrantup.com/vmware/downloads
 10. Run playbook from ansibleserver to setup app server <br />
 ```ansible-playbook appserver.yaml```
 11. Now there is gathered_data.csv created in ansibleserver in /tmp/ folder
+```less /tmp/gathered_data.csv```
 
 ## Automation task - Linux - AMD64 architecture
 
@@ -51,3 +52,4 @@ https://www.virtualbox.org/wiki/Downloads
 10. Run playbook from ansibleserver to setup app server <br />
 ```ansible-playbook appserver.yaml```
 11. Now there is gathered_data.csv created in ansibleserver in /tmp/ folder
+```less /tmp/gathered_data.csv```
