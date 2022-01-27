@@ -1,5 +1,9 @@
 # SB DBA
 Default working version is for M1 Mac - Arm architecture, how to use in amd64 architecture is under.
+### Description
+Playbooks that contain provision are only for setting up VM-s with Vagrant. Playbooks that are in separate folder named playbooks are used in actual ansibleserver. 
+There are 2 playbooks in playbooks folder - 1 for database server and 1 for application server. These are copied to ansibleserver while provision with vagrant.
+The desired file for this project gathered_data.csv is different when building from scratch. Because I used random generated data for dummy data.
 ## Automation task - M1 Mac - ARM architecture
 
 1. Install vagrant <br />
