@@ -22,10 +22,11 @@ https://www.vagrantup.com/vmware/downloads
 ```vagrant up```
 8. SSH into ansibleserver that was built with Vagrant <br />
 ```vagrant ssh ansibleserver```
-9. Run plabook from ansibleserver to setup database server <br />
+9. Run playbook from ansibleserver to setup database server - this should always run first, because it sets up database with dummy data <br />
 ```ansible-playbook dbserver.yaml```
-10. Run plabook from ansibleserver to setup app server <br />
+10. Run playbook from ansibleserver to setup app server <br />
 ```ansible-playbook appserver.yaml```
+11. Now there is gathered_data.csv created in ansibleserver in /tmp/ folder
 
 ## Automation task - Linux - AMD64 architecture
 
@@ -45,7 +46,8 @@ https://www.virtualbox.org/wiki/Downloads
 ```vagrant up```
 8. SSH into ansibleserver that was built with Vagrant <br />
 ```vagrant ssh ansibleserver```
-9. Run plabook from ansibleserver to setup database server <br />
+9. Run playbook from ansibleserver to setup database server - this should always run first, because it sets up database with dummy data <br />
 ```ansible-playbook dbserver.yaml```
-10. Run plabook from ansibleserver to setup app server <br />
+10. Run playbook from ansibleserver to setup app server <br />
 ```ansible-playbook appserver.yaml```
+11. Now there is gathered_data.csv created in ansibleserver in /tmp/ folder
